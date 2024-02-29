@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../../public/assets/css/style.css">
     <title>Formulario de Registro</title>
 </head>
 
 <body>
 
-<form action= "../app/config/register_config.php" method="post">
+    <form action="../../config/register_config.php" method="post">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -30,4 +30,6 @@
 
         <input type="submit" value="Crear">
 
+        <!-- De momento no lo ponemos porqué las rutas no funcionan bien del todo aún -->
+        <!-- <button type="submit"><a href="login.php">Iniciar Sesión</a></button> -->
     </form>

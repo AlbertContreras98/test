@@ -1,37 +1,61 @@
 <?php
 require(BASE_PATH . '/app/controllers/Controller.php');
 
-class AuthController extends Controller {
-    
+class AuthController extends Controller
+{
+
     // Función que mediante el nombre y el password devuelve el id de usuario
-    public function obtener_id($nombre, $password)
+    public function obtener_id($use_nombre, $password)
     {
-        $id = 0;
-        $nombre = mysqli_real_escape_string($this->con, $nombre);
+        $pk_user = 0;
+        $use_nombre = mysqli_real_escape_string($this->con, $use_nombre);
         $password = mysqli_real_escape_string($this->con, $password);
 
-        $query = "SELECT id FROM usuarios WHERE nombre = '{$nombre}' AND password = '{$password}' LIMIT 1"; // Asegúrate que la tabla y columna son correctas
+        $query = "SELECT pk_user FROM user WHERE use_nombre = '{$use_nombre}' AND password = '{$password}' LIMIT 1";
         $result = mysqli_query($this->con, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            $id = $row['id'];
+            $pk_user = $row['pk_user'];
         }
-        return $id;
+        return $pk_user;
     }
 
     // Lógica de comprobación si coinciden el usuario y su contraseña
-    public function comprobar_usuario($nombre, $password)
+    public function comprobar_usuario($use_nombre, $password)
     {
-        $nombre = mysqli_real_escape_string($this->con, $nombre);
+        $use_nombre = mysqli_real_escape_string($this->con, $use_nombre);
         $password = mysqli_real_escape_string($this->con, $password);
 
-        $query = "SELECT * FROM usuarios WHERE nombre = '{$nombre}' AND password = '{$password}' LIMIT 1"; // Asegúrate que la tabla y columna son correctas
+        $query = "SELECT * FROM user WHERE use_nombre = '{$use_nombre}' AND password = '{$password}' LIMIT 1";
         $result = mysqli_query($this->con, $query);
 
         return $result && mysqli_num_rows($result) > 0;
     }
-    
-    //Añadir botón logout
+
+
+    //funcion para meter a la base de datos
+    public function introducir_nuevo_usuario($use_nombre, $use_apellidos, $use_fechanac, $use_mail, $password)
+    {
+        $use_nombre = mysqli_real_escape_string($this->con, $use_nombre);
+        $use_apellidos = mysqli_real_escape_string($this->con, $use_apellidos);
+        $use_fechanac = mysqli_real_escape_string($this->con, $use_fechanac);
+        $use_mail = mysqli_real_escape_string($this->con, $use_mail);
+        $password = mysqli_real_escape_string($this->con, $password);
+
+        $query = "INSERT INTO user (use_nombre, use_apellidos,use_fechanac,use_mail, password) 
+                  VALUES ('{$use_nombre}','{$use_apellidos}','{$use_fechanac}','{$use_mail}','{$password}');";
+        $result = mysqli_query($this->con, $query);
+
+        return $result;
+    }
+
+    //funcion del logout
+    public function logout()
+    {
+        session_destroy();
+        echo "Deslogueando, sera redirigido al login";
+        header('Refresh: 2; URL=../../public/index.php');
+    }
+
 }
-?>

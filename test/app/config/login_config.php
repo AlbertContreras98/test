@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once('../../routes/route.php');
 include(BASE_PATH . '/app/controllers/AuthController.php');
 
 $authController = new AuthController();
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         // redirigimos a la vista del admin o al perfil de usuario según el nombre
-        if ($nombre === 'admin') {
+        if ($nombre === 'Admin') {
             header('Location: ../views/user/index.php');
         } else {
             header('Location: ../views/portfolio/index.php/'.$id);
@@ -46,4 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Refresh: 2; URL=../../public/index.php');
     }
 }
-?>

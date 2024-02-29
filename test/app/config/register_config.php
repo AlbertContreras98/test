@@ -1,16 +1,19 @@
 <?php
+require_once('../../routes/route.php');
+include(BASE_PATH . '/app/controllers/AuthController.php');
 
-session_start();
-//Authentication del registro
-
+$authController = new AuthController();
 //Lógica de autentificación Register
 // recuperamos variables del post
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
     $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $fecha_nac = $_POST['fecha_nac'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-
+    $confirmarPassword = $_POST['confirmarPassword'];
 
     // creamos un array para errores
     $errores = array();
@@ -30,22 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "La confirmación de contraseña debe coincidir con la contraseña ingresada.";
     }
 
-    // faltaria hacer la comprobacion con la base de datos de que el usuario y la pass es correcta
-
-
-
-    
-    // Si no hay errores, almacenamos datos en la variable de sesión y redirigimos
-    // Si el usuario es el admin redirigimos a la vista de control de usuarios
-    //  si el usuario es un cliente redirimos a la pagina de su perfil de usuario
+    // Si no hay errores, intentamos registrar al usuario
     if (empty($errores)) {
-        $_SESSION["usuario"] = array(
-            "nombre" => $nombre,
-        );
-
+        if ($authController->introducir_nuevo_usuario($nombre, $apellido, $fecha_nac, $email, $password)) {
+            $_SESSION["usuario"] = array(
+                "nombre" => $nombre,
+                "apellido" => $apellido,
+                "fecha_nac" => $fecha_nac,
+                "email" => $email,
+                "password" => $password
+            );
+            // Redirigir a la página de inicio
+            header('Location: ../views/auth/login.php');
+        } else {
+            // Manejar el error de inserción
+            $errores[] = "Hubo un error al registrar el usuario.";
+        }
     } else {
-        // redirigimos a la pagina de incio y mandamos el log del error con un echo o un alert
-
+        // Mostrar errores
+        $_SESSION['errores'] = $errores;
+        header('Location: ' . BASE_PATH);
     }
 
     exit();

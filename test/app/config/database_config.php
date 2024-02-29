@@ -11,7 +11,7 @@ $dbname = "proyecto";
 //funcion para crear y obtener la variable de conexion
 function getConnection()
 {
-    $con = mysqli_connect($GLOBALS["host"], $GLOBALS["username"], $GLOBALS["password"]) or die("Error al conectar con la base de datos");
+    $con = mysqli_connect($GLOBALS["host"], $GLOBALS["username"], $GLOBALS["password"], $GLOBALS["dbname"]) or die("Error al conectar con la base de datos");
     return $con;
 }
 

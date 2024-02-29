@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="<?php echo BASE_PATH; ?>/app/config/login_config.php">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/style.css">
     <title>Formulario de Login</title>
 </head>
 
 <body id="fondo_login">
 
-    <form action="<?php echo BASE_PATH; ?>/app/config/login_config.php" method="post">
+    <form action="../app/config/login_config.php" method="post">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -21,8 +21,8 @@
 
         <input type="submit" value="Acceder">
 
-        <!-- <button type="submit"><a href="<?php echo BASE_PATH; ?>/app/views/auth/register.php">Resgitrate
-                aquí</a></button> -->
+        <button type="submit"><a href="../app/views/auth/register.php">Resgitrate
+                aquí</a></button>
 
     </form>
 
