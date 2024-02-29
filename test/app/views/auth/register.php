@@ -9,7 +9,7 @@
 
 <body>
 
-    <form action="../../config/register_config.php" method="post">
+    <form action="/auth/register" method="post">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 

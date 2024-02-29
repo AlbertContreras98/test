@@ -3,7 +3,14 @@ require(BASE_PATH . '/app/controllers/Controller.php');
 
 class AuthController extends Controller
 {
-
+        public function register() {
+            // Aquí va la lógica de registro que tenías antes
+            // Por ejemplo:
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Obtener datos del formulario y procesarlos...
+            }
+        }
+    
     // Función que mediante el nombre y el password devuelve el id de usuario
     public function obtener_id($use_nombre, $password)
     {
