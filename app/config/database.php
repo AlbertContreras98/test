@@ -1,4 +1,7 @@
 <?php
+include(DATABASE_PATH . '/migrations/create_table_porfolio.php');
+include(DATABASE_PATH . '/migrations/create_table_project.php');
+
 class Database
 {
 
@@ -39,28 +42,13 @@ class Database
     {
         $strSQL = "CREATE DATABASE IF NOT EXISTS {$this->dbname};";
         mysqli_query($this->con, $strSQL) or die("Error al crear la base de datos: " . mysqli_error($this->con));
-    }
-
-    /**
-     * Función para llamar a la creacion de tablas y de usuarios semilla
-     */
-    public function createTables()
-    {
-        $this->createTableUser();
+        mysqli_select_db($this->con, $this->dbname) or die("Error al seleccionar la base de datos: " . mysqli_error($this->con));
         $this->createTablePortfolio();
-        $this->insertAdminAndUser();
+        $this->createTableProject();
     }
-
+    
     /**
-     * Función para crear la tabla usuario con los usuarios semilla
-     */
-    private function createTableUser()
-    {
-        create_table_user($this->con);
-    }
-
-    /**
-     * Función de clase para crear la tabla portfolio
+     * Función para crear la tabla portfolio
      */
     private function createTablePortfolio()
     {
@@ -68,13 +56,13 @@ class Database
     }
 
     /**
-     * Lógica para insertar administrador y usuario si no existen
+     * Función para crear la tabla Project
      */
-    private function insertAdminAndUser()
+    private function createTableProject()
     {
-        insert_admin_and_user($this->con);
+        create_table_project($this->con);
     }
-
+    
     /**
      * Funcion para cerrar la conexión
      */
@@ -83,8 +71,3 @@ class Database
         mysqli_close($this->con);
     }
 }
-/**
- * Creamos el objeto de conexión
- */
-
-

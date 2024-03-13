@@ -1,10 +1,15 @@
 <?php
-session_start();
-
 /**
  * Define la ruta del directorio base del proyecto
  */
 define('BASE_PATH', realpath(dirname(__FILE__) . '/..'));
+
+// Define constantes para las rutas específicas dentro del proyecto
+define('CONFIG_PATH', BASE_PATH . '/app/config');
+define('CONTROLLERS_PATH', BASE_PATH . '/app/controllers');
+define('DATABASE_PATH', BASE_PATH . '/app/database');
+define('MODELS_PATH', BASE_PATH . '/app/models');
+define('VIEWS_PATH', BASE_PATH . '/app/views');
 
 /**
  * Define la hora
